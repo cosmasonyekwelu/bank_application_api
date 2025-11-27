@@ -34,24 +34,24 @@ The system replaces Django's username-based authentication with a fully email-ba
 
 ## 2. Features
 
-* Custom User Model (email login, no username)
-* Unique BVN, NIN, and account number validation
-* Custom User Manager for superuser and standard user creation
-* JWT authentication (login and token refresh)
-* DRF-based API configuration
-* Secure endpoints using authentication classes
-* Migrations and admin support
+- Custom User Model (email login, no username)
+- Unique BVN, NIN, and account number validation
+- Custom User Manager for superuser and standard user creation
+- JWT authentication (login and token refresh)
+- DRF-based API configuration
+- Secure endpoints using authentication classes
+- Migrations and admin support
 
 ---
 
 ## 3. Technologies Used
 
-* Python 3
-* Django 5
-* Django REST Framework
-* Django REST Framework SimpleJWT
-* SQLite (default) or PostgreSQL
-* Virtual environment (venv)
+- Python 3
+- Django 5
+- Django REST Framework
+- Django REST Framework SimpleJWT
+- SQLite (default) or PostgreSQL
+- Virtual environment (venv)
 
 ---
 
@@ -60,7 +60,7 @@ The system replaces Django's username-based authentication with a fully email-ba
 Clone the project:
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/cosmasonyekwelu/bank_application_api>
 cd mibank
 ```
 
@@ -310,8 +310,8 @@ py manage.py createsuperuser
 
 You will only provide:
 
-* Email
-* Password
+- Email
+- Password
 
 ---
 
@@ -365,4 +365,3 @@ Suggested next features include:
 8. API documentation using DRF-YASG or Swagger
 
 ---
-
