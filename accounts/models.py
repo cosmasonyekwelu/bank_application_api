@@ -15,7 +15,7 @@ class Accounts(models.Model):
     )
     bvn = models.CharField(max_length=11)
     nin = models.CharField(max_length=11)
-    account_number = models.CharField(max_length=10)
+    account_number = models.CharField(max_length=10, null=True, blank=True)
     account_type = models.CharField(max_length=20, choices=ACCOUNT_TYPE_CHOICES)
     amount = models.FloatField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
