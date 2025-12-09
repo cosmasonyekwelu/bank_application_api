@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Accounts
 import random
+from users.serializers import UserSerializer
 
 
 class CreateAccount(serializers.ModelSerializer):
@@ -34,6 +35,7 @@ class CreateAccount(serializers.ModelSerializer):
 
 
 class AccountDetails(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Accounts
         fields = ['user', 'account_number', 'account_type', 'amount']

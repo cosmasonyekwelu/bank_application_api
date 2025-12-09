@@ -3,6 +3,8 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import RegisterSerializer
+from .models import User
+from users import serializers
 
 # Authentication Imports
 from django.contrib.auth import authenticate
@@ -41,3 +43,17 @@ def login(request):
         }, status=status.HTTP_201_CREATED)
     else:
         return Response({"error": "Invalid email or password"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    
+@api_view(["PATCH"])
+def update_user_details(request):
+    try:
+        user = User.objects.get(id=request.user.id)
+    except User.DoesNotExist:
+        return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+    serializer = serializers.UserSerializer(user, data=request.data , partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "User details updated successfully"}, status=status.HTTP_200_OK)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

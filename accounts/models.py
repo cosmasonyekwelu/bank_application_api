@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Accounts(models.Model):
     ACCOUNT_TYPE_CHOICES = (
         ("current", "Current"),
@@ -16,8 +17,9 @@ class Accounts(models.Model):
     bvn = models.CharField(max_length=11)
     nin = models.CharField(max_length=11)
     account_number = models.CharField(max_length=10, null=True, blank=True)
-    account_type = models.CharField(max_length=20, choices=ACCOUNT_TYPE_CHOICES)
-    amount = models.FloatField(blank=True, null=True)
+    account_type = models.CharField(
+        max_length=20, choices=ACCOUNT_TYPE_CHOICES)
+    amount = models.FloatField(default=0.0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
