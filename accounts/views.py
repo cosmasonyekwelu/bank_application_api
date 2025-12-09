@@ -3,9 +3,18 @@ from rest_framework import status
 from rest_framework.response import Response
 from accounts import serializers
 from users.models import User
+from .models import Accounts
 
 # Create your views here.
-
+@api_view(["GET"])
+def account_details(request):
+    try:
+        account_details = Accounts.objects.get(user=request.user.id)
+    except Accounts.DoesNotExist:
+        return Response({"message": "Account not found"}, status=status.HTTP_404_NOT_FOUND)
+    serializer = serializers.AccountDetails(account_details)
+    return Response({"data":serializer.data}, status=status.HTTP_200_OK)
+    
 
 @api_view(["POST"])
 def create_account(request):

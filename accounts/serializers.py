@@ -31,3 +31,9 @@ class CreateAccount(serializers.ModelSerializer):
 
         account.save()
         return account
+
+
+class AccountDetails(serializers.ModelSerializer):
+    class Meta:
+        model = Accounts
+        fields = ['user', 'account_number', 'account_type', 'amount']
