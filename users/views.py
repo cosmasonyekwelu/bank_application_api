@@ -6,6 +6,8 @@ from .serializers import RegisterSerializer
 from .models import User
 from users import serializers
 
+from drf_spectacular.utils import extend_schema, OpenApiExample
+
 # Authentication Imports
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import AccessToken,RefreshToken
@@ -25,6 +27,25 @@ def register(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@extend_schema(
+    methods=['POST'],
+    request=dict,
+    responses={
+        200:{"message":"Login Successful"},
+        400:{"message":"Login Failed"},
+    },
+    examples=[
+        OpenApiExample(
+            "Login",
+            value={
+                "email":"email@gmail.com",
+                "password":"your pass"
+            }
+        )
+    ],
+    summary="Login User",
+    description="this is for login"
+)
 
 @api_view(["POST"])
 @permission_classes([permissions.AllowAny])

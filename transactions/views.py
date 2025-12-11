@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from accounts.models import Accounts
 from django.db import transaction
 from transactions import serializers
+from .permissions import IscurrentAccount
 
 
 def deposit_money(user, incoming_amount):
@@ -83,3 +84,19 @@ def transfer(request):
             return Response({"message": f"Transfer successful to {receiver.account_number}"}, status=status.HTTP_200_OK)
         else:
             return Response({"message": "something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+@permission_classes([IscurrentAccount])
+def apply_for_loan(request):
+    try:
+        accounts = Accounts.objects.get(user=request.user.id)
+    except Accounts.DoesNotExist:
+        return Response({"message": "Account not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = serializers.LoanSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=accounts)
+        return Response({"message": "Loan application submitted successfully"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
